@@ -11,7 +11,7 @@ import { toNodeHandler } from "better-auth/node";
 import { auth } from "./db/lib/auth.js";
 
 const app = express();
-const PORT = 8000;
+const PORT = Number(process.env.PORT || 8000);
 
 // HANDLE CORS
 
