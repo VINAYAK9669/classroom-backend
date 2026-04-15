@@ -1,7 +1,6 @@
 import express from "express";
 import subjectsRouter from "./routes/subjects.js";
 import cors from "cors";
-import securityMiddleware from "./middleware/security.js";
 
 const app = express();
 const PORT = 8000;
@@ -17,8 +16,6 @@ app.use(
 );
 
 app.use(express.json());
-
-app.use(securityMiddleware);
 
 app.get("/", (_req, res) => {
   res.json({ message: "Backend server is running." });
