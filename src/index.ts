@@ -1,6 +1,14 @@
+import AgentAPI from "apminsight";
+
+AgentAPI.config();
+
 import express from "express";
 import subjectsRouter from "./routes/subjects.js";
 import cors from "cors";
+
+import securityMiddleware from "./middleware/security.js";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./db/lib/auth.js";
 
 const app = express();
 const PORT = 8000;
@@ -15,7 +23,11 @@ app.use(
   }),
 );
 
+app.all("/api/auth/{*splat}", toNodeHandler(auth));
+
 app.use(express.json());
+
+app.use(securityMiddleware);
 
 app.get("/", (_req, res) => {
   res.json({ message: "Backend server is running." });
