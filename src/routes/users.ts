@@ -18,15 +18,14 @@ router.get("/", async (req, res) => {
 
     if (search) {
       filterConditions.push(
-        or(
-          ilike(user.name, `%${search}%`),
-          ilike(user.email, `%${search}%`),
-        ),
+        or(ilike(user.name, `%${search}%`), ilike(user.email, `%${search}%`)),
       );
     }
 
     if (role) {
-      filterConditions.push(eq(user.role, role as "student" | "teacher" | "admin"));
+      filterConditions.push(
+        eq(user.role, role as "student" | "teacher" | "admin"),
+      );
     }
 
     const whereClause =
